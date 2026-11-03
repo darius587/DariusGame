@@ -52,6 +52,21 @@ I asked ChatGPT:
 
 ChatGPT explained AudioSource and AudioClip.
 
+6. Safe Area (Mobile UI)
+
+I had questions about Safe Area in Unity.
+
+I asked ChatGPT:
+"Why are my UI buttons too close to the screen edges?"
+"How can I make my HUD fit different phone screens?"
+"How does Safe Area work in Unity?"
+
+ChatGPT explained Screen.safeArea, Canvas Scaler, and UI anchors.
+
+I learned how to keep my HUD and mobile buttons inside the Safe Area.
+
+I tested the UI on different phone screens using Unity Device Simulator.
+
 AI Assistance
 
 I used ChatGPT to understand Unity and C# problems.
