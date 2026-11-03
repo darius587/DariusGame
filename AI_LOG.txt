@@ -1,0 +1,61 @@
+Project: Darius Game
+
+Engine: Unity 6
+
+1. PlayerMovementShootingSetup.cs
+
+I had questions about player movement and jumping.
+
+I asked ChatGPT:
+"Why does my player not jump correctly?"
+"How can I fix player movement?"
+
+ChatGPT explained Rigidbody2D and player controls.
+
+2. BulletProjectile.cs
+
+I wanted to understand how bullets work.
+
+I asked ChatGPT:
+"Why does my bullet not hit the enemy?"
+"How does OnTriggerEnter2D work?"
+
+ChatGPT explained collisions and triggers.
+
+3. CameraFollow2D.cs
+
+I had questions about the game camera.
+
+I asked ChatGPT:
+"How can I make the camera follow my player?"
+"Why does the camera move incorrectly?"
+
+ChatGPT explained camera movement.
+
+4. CoinCollectible.cs
+
+I wanted to understand how to collect coins.
+
+I asked ChatGPT:
+"How can I detect when the player collects a coin?"
+"How can I update the coin counter?"
+
+ChatGPT explained collision detection and the coin system.
+
+5. AudioManager.cs
+
+I had questions about game sounds.
+
+I asked ChatGPT:
+"Why does my game sound not play?"
+"How can I play music and sound effects?"
+
+ChatGPT explained AudioSource and AudioClip.
+
+AI Assistance
+
+I used ChatGPT to understand Unity and C# problems.
+
+I also received AI help with creating and editing some game scripts and features.
+
+I tested my game in Unity.
