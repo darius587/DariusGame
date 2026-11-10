@@ -12,13 +12,14 @@ namespace Zhuzbai.Platformer.Editor
     public static class GameAudioSetup
     {
         public const string PrefabPath = "Assets/Prefabs/Phase4/AudioManager.prefab";
-        private static readonly string[] Scenes = { U.Menu, U.Level, "Assets/Scenes/Level2.unity", "Assets/Scenes/Level3.unity", "Assets/Scenes/Level4.unity" };
-        private static readonly string[] Fields = { "music", "mainMenuMusic", "levelMusic", "bossMusic", "gameOver", "win", "footsteps", "coin", "jump", "fall", "shoot", "damage", "click" };
+        private static readonly string[] Scenes = { U.Menu, U.Level, "Assets/Scenes/Level2.unity", "Assets/Scenes/Level3.unity", "Assets/Scenes/Level4.unity", EnemyArenaSetup.ScenePath };
+        private static readonly string[] Fields = { "music", "mainMenuMusic", "levelMusic", "bossMusic", "arenaMusic", "gameOver", "win", "footsteps", "coin", "jump", "fall", "shoot", "damage", "click" };
         private static readonly string[,] ImportedClips = {
             { "music", "Assets/Audio/Music/MainMenuMusic.mp3" },
             { "mainMenuMusic", "Assets/Audio/Music/MainMenuMusic.mp3" },
             { "levelMusic", "Assets/Audio/Music/LevelMusic.mp3" },
             { "bossMusic", "Assets/Audio/Music/BossMusic.mp3" },
+            { "arenaMusic", "Assets/Audio/Music/ArenaMusic.mp3" },
             { "coin", "Assets/Audio/CoinSound.mp3" },
             { "jump", "Assets/Audio/JumpSound.mp3" },
             { "shoot", "Assets/Audio/ShootSound.mp3" },
@@ -36,7 +37,7 @@ namespace Zhuzbai.Platformer.Editor
             foreach (string path in Scenes)
                 U.EditScene(path, scene => ConnectScene(scene, prefab, scene.name != "MainMenu"));
             AssetDatabase.SaveAssets();
-            Debug.Log("Game audio applied: imported MP3s, scene music, and event subscriptions in all five scenes.");
+            Debug.Log("Game audio applied: imported MP3s, scene music, and gameplay event references.");
         }
         public static GameObject EnsurePrefab()
         {
@@ -195,7 +196,7 @@ namespace Zhuzbai.Platformer.Editor
                         CheckSubscriptions(bridge.FindProperty("fallZones"), U.All<FallHazard>(scene));
                     }
                 }, false);
-            Debug.Log("Game audio validated in all five scenes: assigned clips, distinct channels, one manager per scene, and gameplay event references.");
+            Debug.Log("Game audio validated in all six scenes: assigned clips, distinct channels, one manager per scene, and gameplay event references.");
         }
         private static void CheckSubscriptions<T>(SerializedProperty array, T[] expected) where T : UnityEngine.Object
         {

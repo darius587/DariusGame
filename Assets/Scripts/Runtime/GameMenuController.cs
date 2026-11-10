@@ -7,13 +7,14 @@ using UnityEngine.SceneManagement;
 
 namespace Zhuzbai.Platformer
 {
-    public enum MenuCommand { Play, Settings, Controls, Quit, Resume, MainMenu, Back, Pause, HowToPlay, Retry, NextLevel, Replay }
-    public enum MenuScreen { Game, Main, Pause, Settings, Controls, HowToPlay, GameOver, Complete, Victory }
+    public enum MenuCommand { Play, Settings, Controls, Quit, Resume, MainMenu, Back, Pause, HowToPlay, Retry, NextLevel, Replay, EnemyChallenge, CampaignStage, EnemyAIStage }
+    public enum MenuScreen { Game, Main, Pause, Settings, Controls, HowToPlay, GameOver, Complete, Victory, StageSelection }
 
     public sealed class GameMenuController : MonoBehaviour
     {
         [SerializeField] private bool gameplayScene = false;
         [SerializeField] private GameObject mainPanel = null;
+        [SerializeField] private GameObject stageSelectionPanel = null;
         [SerializeField] private GameObject pausePanel = null;
         [SerializeField] private GameObject settingsPanel = null;
         [SerializeField] private GameObject controlsPanel = null;
@@ -26,6 +27,7 @@ namespace Zhuzbai.Platformer
         [SerializeField] private GameObject levelCompletePanel = null;
         [SerializeField] private GameObject victoryPanel = null;
         [SerializeField] private UnityEngine.UI.Text completedCoins = null;
+        [SerializeField] private string replayScene = "MainLevel";
         private LevelSession session;
         private PlayerHealth health;
         private MenuScreen? outcome;
@@ -87,13 +89,19 @@ namespace Zhuzbai.Platformer
         {
             switch (command)
             {
-                case MenuCommand.Play: Load("MainLevel"); break;
+                case MenuCommand.Play:
+                    if (stageSelectionPanel != null) Show(MenuScreen.StageSelection);
+                    else Load("MainLevel");
+                    break;
+                case MenuCommand.CampaignStage: Load("MainLevel"); break;
+                case MenuCommand.EnemyChallenge:
+                case MenuCommand.EnemyAIStage: Load("EnemyAI"); break;
                 case MenuCommand.MainMenu: Load("MainMenu"); break;
                 case MenuCommand.Settings: Show(MenuScreen.Settings); break;
                 case MenuCommand.Controls: Show(MenuScreen.Controls); break;
                 case MenuCommand.HowToPlay: if (gameplayScene) Show(MenuScreen.HowToPlay); break;
                 case MenuCommand.Retry: Load(SceneManager.GetActiveScene().name); break;
-                case MenuCommand.Replay: Load("MainLevel"); break;
+                case MenuCommand.Replay: Load(string.IsNullOrEmpty(replayScene) ? "MainLevel" : replayScene); break;
                 case MenuCommand.NextLevel:
                     if (session != null && session.Completed && session.Definition != null && !string.IsNullOrEmpty(session.Definition.NextScene)) Load(session.Definition.NextScene);
                     break;
@@ -137,7 +145,9 @@ namespace Zhuzbai.Platformer
         {
             if (!outcome.HasValue)
             {
-                if (value == MenuScreen.GameOver) AudioManager.Instance?.PlayGameOver();
+                if (gameObject.scene.name == "EnemyAI" && (value == MenuScreen.Victory || value == MenuScreen.GameOver))
+                    AudioManager.Instance?.PlayArenaOutcome(value == MenuScreen.Victory);
+                else if (value == MenuScreen.GameOver) AudioManager.Instance?.PlayGameOver();
                 else if (value == MenuScreen.Complete) AudioManager.Instance?.PlayVictory(null);
             }
             outcome = value; history.Clear(); Show(value, false);
@@ -148,6 +158,7 @@ namespace Zhuzbai.Platformer
             if (remember && next != screen) history.Push(screen);
             screen = next;
             if (mainPanel != null) mainPanel.SetActive(next == MenuScreen.Main);
+            if (stageSelectionPanel != null) stageSelectionPanel.SetActive(next == MenuScreen.StageSelection);
             if (pausePanel != null) pausePanel.SetActive(next == MenuScreen.Pause);
             if (settingsPanel != null) settingsPanel.SetActive(next == MenuScreen.Settings);
             if (controlsPanel != null) controlsPanel.SetActive(next == MenuScreen.Controls);
@@ -172,7 +183,7 @@ namespace Zhuzbai.Platformer
             }
             IsGameplayBlocked = !gameplayScene || block;
             Time.timeScale = block ? 0 : 1;
-            GameObject panel = next switch { MenuScreen.Main => mainPanel, MenuScreen.Pause => pausePanel,
+            GameObject panel = next switch { MenuScreen.Main => mainPanel, MenuScreen.StageSelection => stageSelectionPanel, MenuScreen.Pause => pausePanel,
                 MenuScreen.Settings => settingsPanel, MenuScreen.Controls => controlsPanel, MenuScreen.HowToPlay => howToPlayPanel,
                 MenuScreen.GameOver => gameOverPanel, MenuScreen.Complete => levelCompletePanel, MenuScreen.Victory => victoryPanel, _ => null };
             if (EventSystem.current != null)

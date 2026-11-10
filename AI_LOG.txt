@@ -67,6 +67,43 @@ I learned how to keep my HUD and mobile buttons inside the Safe Area.
 
 I tested the UI on different phone screens using Unity Device Simulator.
 
+7. Enemy AI — Finite State Machine
+
+I had questions about enemy behavior and state transitions.
+
+I asked ChatGPT:
+"How does a Finite State Machine (FSM) work in Unity?"
+"How can an enemy switch between patrol, chase, and attack states?"
+"Why does my enemy need an attack cooldown?"
+
+ChatGPT explained how FSM states control enemy behavior and how cooldowns prevent continuous attacks.
+
+8. Enemy Detection — Raycasting
+
+I wanted to understand how enemies detect the player.
+
+I asked ChatGPT:
+"How can an enemy detect the player using distance and viewing angle?"
+"How does Physics2D.Raycast work?"
+"How can I prevent enemies from detecting the player through walls?"
+
+ChatGPT explained distance checks, field of view, and raycasting for line-of-sight detection.
+
+9. Enemy Attacks — Shooter and Charger
+
+I had questions about ranged attacks and charging behavior.
+
+I asked ChatGPT:
+"How can I make Shooter wait before firing a projectile?"
+"How can I make Charger prepare before charging?"
+"How can I adjust enemy attack speed and difficulty in the Unity Inspector?"
+
+ChatGPT explained attack wind-up, charging states, and adjustable enemy parameters.
+
+I learned how to make enemy attacks more predictable and how to balance enemy difficulty.
+
+I tested the enemy behaviors in Unity and on an Android phone.
+
 AI Assistance
 
 I used ChatGPT to understand Unity and C# problems.

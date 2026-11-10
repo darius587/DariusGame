@@ -310,6 +310,7 @@ MonoBehaviour:
   mainMenuMusic: {fileID: 8300000, guid: afb1389b6f75df14a8abf39521c888af, type: 3}
   levelMusic: {fileID: 8300000, guid: e04d71332bb9d6c48a7ed78367f60503, type: 3}
   bossMusic: {fileID: 8300000, guid: b58fdbc5bf993064b98ad326ffa2cda3, type: 3}
+  arenaMusic: {fileID: 8300000, guid: a9703da69b612114fa797ed338a6d90f, type: 3}
   gameOver: {fileID: 8300000, guid: 1fe20ed598f144c4aae208a4da6a9712, type: 3}
   win: {fileID: 8300000, guid: c032a6e135e198e419e457428f03c75c, type: 3}
   footsteps: {fileID: 0}

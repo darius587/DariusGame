@@ -110,6 +110,8 @@ namespace Zhuzbai.Platformer.Editor
                 MakeButton(main, "Settings", "SETTINGS", -450, MenuCommand.Settings, controller);
                 MakeButton(main, "Controls", "CONTROLS", -550, MenuCommand.Controls, controller);
                 MakeButton(main, "Quit", "QUIT", -650, MenuCommand.Quit, controller);
+                if (AssetDatabase.LoadAssetAtPath<SceneAsset>(EnemyArenaSetup.ScenePath) != null)
+                    BuildStageSelection(controller);
                 Label(main, "Footer", "EXPLORE  /  COLLECT  /  ADVENTURE", new Vector2(0, -790), new Vector2(660, 30), 19, new Color32(167, 210, 231, 255));
                 if (U.All<Camera>(scene).Length == 0)
                 {
@@ -258,6 +260,67 @@ namespace Zhuzbai.Platformer.Editor
             var rect = Rect(parent, name);
             Place(rect, new Vector2(0.5f, 1), new Vector2(0.5f, 0.5f), new Vector2(0, y), new Vector2(500, 76));
             return ConfigureButton(rect, text, command, controller);
+        }
+
+        internal static void BuildStageSelection(GameMenuController controller)
+        {
+            Transform safe = controller.transform.Find("Safe Area");
+            Transform main = safe != null ? safe.Find("Main") : null;
+            if (main == null || safe.GetComponent<MenuSafeArea>() == null)
+                throw new InvalidOperationException("MainMenu requires its existing Safe Area and Main panel.");
+
+            Transform legacy = main.Find("Enemy Challenge");
+            if (legacy != null)
+            {
+                if (!IsMenuButton(main, "Enemy Challenge", MenuCommand.EnemyChallenge, controller))
+                    throw new InvalidOperationException("The existing Enemy Challenge object is not the legacy menu button.");
+                foreach (var row in new[] { ("Settings", -450f), ("Controls", -550f), ("Quit", -650f) })
+                {
+                    var rect = (RectTransform)main.Find(row.Item1);
+                    rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, row.Item2);
+                }
+                UnityEngine.Object.DestroyImmediate(legacy.gameObject);
+            }
+
+            var panel = Panel(safe, "Stage Selection", new Vector2(740, 600));
+            Label(panel, "Title", "SELECT STAGE", new Vector2(0, -54), new Vector2(620, 72), 48, Gold);
+            MakeButton(panel, "Campaign", "STAGE 1 — CAMPAIGN", -216, MenuCommand.CampaignStage, controller);
+            MakeButton(panel, "Enemy AI", "STAGE 2 — ENEMY AI", -332, MenuCommand.EnemyAIStage, controller);
+            MakeButton(panel, "Back", "BACK", -470, MenuCommand.Back, controller);
+            U.Reference(controller, "stageSelectionPanel", panel.gameObject);
+            panel.gameObject.SetActive(false);
+        }
+
+        internal static void ValidateStageSelection(Scene scene)
+        {
+            var controller = U.All<GameMenuController>(scene).Single();
+            var safe = controller.transform.Find("Safe Area");
+            var main = safe != null ? safe.Find("Main") : null;
+            var stages = safe != null ? safe.Find("Stage Selection") : null;
+            var data = new SerializedObject(controller);
+            if (main == null || main.Find("Enemy Challenge") != null || !main.gameObject.activeSelf ||
+                stages == null || stages.gameObject.activeSelf || stages.GetComponent<MenuPanelFit>() == null ||
+                safe.GetComponent<MenuSafeArea>() == null || controller.GetComponent<CanvasScaler>() == null ||
+                data.FindProperty("stageSelectionPanel").objectReferenceValue != stages.gameObject ||
+                !IsMenuButton(main, "Play", MenuCommand.Play, controller) ||
+                !IsMenuButton(main, "Settings", MenuCommand.Settings, controller) ||
+                !IsMenuButton(main, "Controls", MenuCommand.Controls, controller) ||
+                !IsMenuButton(main, "Quit", MenuCommand.Quit, controller) ||
+                !IsMenuButton(stages, "Campaign", MenuCommand.CampaignStage, controller) ||
+                !IsMenuButton(stages, "Enemy AI", MenuCommand.EnemyAIStage, controller) ||
+                !IsMenuButton(stages, "Back", MenuCommand.Back, controller))
+                throw new InvalidOperationException("MainMenu requires a wired stage selection panel and the four main actions.");
+            UiInputActionSetup.Validate(U.All<InputSystemUIInputModule>(scene).Single(), scene.name);
+        }
+
+        private static bool IsMenuButton(Transform parent, string name, MenuCommand command, GameMenuController controller)
+        {
+            var item = parent.Find(name);
+            if (item == null || item.GetComponent<Button>() == null || !item.TryGetComponent(out MenuButtonAction action))
+                return false;
+            var data = new SerializedObject(action);
+            return data.FindProperty("controller").objectReferenceValue == controller &&
+                data.FindProperty("command").intValue == (int)command;
         }
         private static Button ConfigureButton(RectTransform rect, string text, MenuCommand command, GameMenuController controller)
         {
