@@ -15,6 +15,7 @@ namespace Zhuzbai.Platformer
         [SerializeField] private AudioClip mainMenuMusic = null;
         [SerializeField] private AudioClip levelMusic = null;
         [SerializeField] private AudioClip bossMusic = null;
+        [SerializeField] private AudioClip arenaMusic = null;
         [SerializeField] private AudioClip gameOver = null;
         [SerializeField] private AudioClip win = null;
         [SerializeField] private AudioClip footsteps = null;
@@ -32,6 +33,7 @@ namespace Zhuzbai.Platformer
         public float MusicVolume { get; private set; }
         public bool Fullscreen { get; private set; }
         private bool gameplayPaused;
+        private bool arenaOutcomeActive;
         private bool walking;
         private bool initialized;
         private const string SfxKey = "Zhuzbai.SfxVolume";
@@ -75,7 +77,7 @@ namespace Zhuzbai.Platformer
             if (Application.isPlaying && Instance == this && initialized)
             {
                 SetChannelVolumes();
-                if (!hadMusic) PlaySceneMusic(SceneManager.GetActiveScene());
+                if (!hadMusic && !arenaOutcomeActive) PlaySceneMusic(SceneManager.GetActiveScene());
             }
         }
 
@@ -122,6 +124,11 @@ namespace Zhuzbai.Platformer
             EnsureSourcesReady();
             SetFootsteps(false);
             effectsSource.Stop();
+            if (arenaOutcomeActive)
+            {
+                uiSource.Stop();
+                arenaOutcomeActive = false;
+            }
             gameplayPaused = false;
             PlaySceneMusic(scene);
         }
@@ -130,7 +137,8 @@ namespace Zhuzbai.Platformer
             AudioClip selected = scene.name switch {
                 "MainMenu" => mainMenuMusic,
                 "MainLevel" or "Level2" or "Level3" => levelMusic,
-                "Level4" => bossMusic, _ => music
+                "Level4" => bossMusic,
+                "EnemyAI" => arenaMusic, _ => music
             };
             if (musicSource.clip == selected && musicSource.isPlaying) return;
             musicSource.Stop();
@@ -143,6 +151,15 @@ namespace Zhuzbai.Platformer
         {
             EnsureSourcesReady();
             if (gameOver != null) uiSource.PlayOneShot(gameOver, 0.7f / 0.45f);
+        }
+
+        internal void PlayArenaOutcome(bool won)
+        {
+            EnsureSourcesReady();
+            arenaOutcomeActive = true;
+            musicSource.Stop();
+            if (won) PlayVictory(null);
+            else PlayGameOver();
         }
         private void OnDestroy()
         {

@@ -31,6 +31,7 @@ namespace Zhuzbai.Platformer
             if (boss != null) boss.TryTakeBulletHit(this);
             var enemy = collision.collider.GetComponentInParent<PatrolEnemy>();
             if (enemy != null) enemy.TakeHit(1);
+            else if (boss == null) collision.collider.GetComponentInParent<EnemyHealth>()?.TakeDamage(1);
             Destroy(gameObject);
         }
     }
