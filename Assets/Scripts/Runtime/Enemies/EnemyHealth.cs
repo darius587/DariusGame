@@ -3,9 +3,11 @@ using UnityEngine;
 namespace Zhuzbai.Platformer
 {
     [DisallowMultipleComponent]
-    public sealed class EnemyHealth : MonoBehaviour
+    public sealed class EnemyHealth : MonoBehaviour, IEnemyStatsReceiver
     {
-        [SerializeField, Min(1)] private int maximumHealth = 2;
+        [SerializeField] private EnemyStats stats = null;
+        public void ApplyStats(EnemyStats data) { if (data != null) stats = data; CurrentHealth = Mathf.Max(1, maximumHealth); }
+        private int maximumHealth => stats.enemyHealth_maximumHealth;
 
         public int CurrentHealth { get; private set; }
         public bool IsDead => CurrentHealth <= 0;

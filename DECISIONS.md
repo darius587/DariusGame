@@ -21,3 +21,15 @@
 |---|---|---|---|
 | Shooter | Wind Up Seconds | 0.6 s | 0.8 s |
 | Charger | Charge Speed | 8 | 6 |
+
+## Week 11 — Data and saves
+
+16.11.2026 — I asked AI to move player, enemy, and item balance values into ScriptableObject assets. I tested the system by changing player health from 3 to 6 without editing code.
+
+16.11.2026 — I asked AI to implement JSON saving for coins, best score, unlocked levels, and completed levels. I tested a corrupted save file and confirmed that the game loaded default progress without crashing.
+
+17.11.2026 — I decided to make coins optional in the three campaign levels because I wanted players to choose how many coins to collect before reaching the exit.
+
+17.11.2026 — I kept BestScore as the highest coin score from one completed level and TotalCoins as the accumulated coins from all completed runs.
+
+17.11.2026 — I tested Reset Progress and confirmed that Cancel preserves progress while Confirm resets it. I also verified that settings persist after restarting Unity Play Mode.

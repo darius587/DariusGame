@@ -399,7 +399,7 @@ namespace Zhuzbai.Platformer.Editor
         private static void Set(Object target, string field, object value)
         {
             var data = new SerializedObject(target);
-            SerializedProperty property = data.FindProperty(field);
+            SerializedProperty property = BalanceEditorUtility.Property(ref data, target, field);
             if (value is int number) property.intValue = number;
             else if (value is string text) property.stringValue = text;
             else if (value is Vector2 vector) property.vector2Value = vector;

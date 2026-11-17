@@ -5,8 +5,9 @@ namespace Zhuzbai.Platformer
 {
     public sealed class PlayerHealth : MonoBehaviour
     {
-        [SerializeField, Min(1)] private int maximumHealth = 3;
-        [SerializeField, Min(0)] private float invulnerabilitySeconds = 1;
+        [SerializeField] private PlayerStats stats = null;
+        private int maximumHealth => stats.playerHealth_maximumHealth;
+        private float invulnerabilitySeconds => stats.playerHealth_invulnerabilitySeconds;
         private Vector3 spawnPoint;
         private float nextDamageTime;
         private int lastAbyssFrame = -1;
@@ -64,7 +65,7 @@ namespace Zhuzbai.Platformer
             if (IsDead || lastAbyssFrame == Time.frameCount) return false;
             lastAbyssFrame = Time.frameCount;
             acceptedFall?.Invoke(this); // Existing fall audio plays before a fatal fall pauses SFX.
-            ApplyDamage(1, true, false);
+            ApplyDamage(stats.playerHealth_abyssDamage, true, false);
             if (!IsDead) Respawn();
             return true;
         }

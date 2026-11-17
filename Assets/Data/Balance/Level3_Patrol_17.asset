@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc731aecb8b42a88ce585db632297c6, type: 3}
+  m_Name: Level3_Patrol_17
+  m_EditorClassIdentifier: 
+  patrollerEnemy_patrolSpeed: 1.4
+  patrollerEnemy_chaseSpeed: 2.8
+  patrollerEnemy_strikeRange: 1.25
+  patrollerEnemy_wallClearance: 0.02
+  patrollerEnemy_damage: 1
+  patrollerEnemy_windUpSeconds: 0.4
+  patrollerEnemy_cooldownSeconds: 1
+  shooterEnemy_scanTurnSeconds: 1
+  shooterEnemy_preferredDistance: 3
+  shooterEnemy_retreatSpeed: 2
+  shooterEnemy_wallClearance: 0.02
+  shooterEnemy_windUpSeconds: 0.6
+  shooterEnemy_cooldownSeconds: 1.4
+  chargerEnemy_patrolSpeed: 1.2
+  chargerEnemy_chargeSpeed: 8
+  chargerEnemy_chargeRange: 4.5
+  chargerEnemy_chargeSeconds: 0.5
+  chargerEnemy_maximumHeightDifference: 0.85
+  chargerEnemy_wallClearance: 0.02
+  chargerEnemy_damage: 1
+  chargerEnemy_windUpSeconds: 0.7
+  chargerEnemy_recoverySeconds: 1.5
+  enemyHealth_maximumHealth: 2
+  enemyPerception2D_sightDistance: 7
+  enemyPerception2D_fieldOfView: 110
+  enemyProjectile_damage: 1
+  enemyProjectile_speed: 5
+  enemyProjectile_lifetime: 3
+  enemyProjectile_collisionRadius: 0.12
+  patrolEnemy_speed: 1.4
+  patrolEnemy_maximumHealth: 3
+  bossMaximumHealth: 15
+  bossPhaseThreshold: 8
+  bossDamage: 1
+  bossEntryDelay: 2.5
+  bossWindUp: 0.95
+  bossPhase2WindUp: 0.75
+  bossCooldown: 1.7
+  bossPhase2Cooldown: 0.95
+  bossShotSpeed: 4
+  bossPhase2ShotSpeed: 4.8
+  bossWaveSpeed: 4.5
+  bossWaveInterval: 0.2
+  bossProjectileLimit: 12
+  bossProjectileLifetime: 7

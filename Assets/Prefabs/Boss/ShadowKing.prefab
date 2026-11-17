@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec90403022548b42837df65f496f761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.ShadowKingHealth
+  stats: {fileID: 11400000, guid: ce943b4029824553b6389b8562fde4b3, type: 2}
 --- !u!114 &735517377240609887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +144,7 @@ MonoBehaviour:
   victorySound: {fileID: 8300000, guid: c032a6e135e198e419e457428f03c75c, type: 3}
   player: {fileID: 0}
   session: {fileID: 0}
+  stats: {fileID: 11400000, guid: ce943b4029824553b6389b8562fde4b3, type: 2}
 --- !u!1 &4744665225409916534
 GameObject:
   m_ObjectHideFlags: 0

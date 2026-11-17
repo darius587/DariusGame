@@ -5393,10 +5393,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '1. Collect all coins to unlock the exit gate.
+  m_Text: '1. Reach the exit gate to finish the level, even with zero coins.
 
 
-    2. Reach the unlocked gate to finish the level.
+    2. Coins are optional. Collect them to improve your score and total coins.
 
 
     3. You have 3 HP. Avoid abyss falls, enemies, falling rocks, and bombs.
@@ -7527,14 +7527,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb26d9dccaf33147924a10ee62e579b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.LevelDefinition
+  levelData: {fileID: 11400000, guid: 21a7e246d7fc4a05a7b4c82376be84b8, type: 2}
   levelNumber: 2
   levelName: Desert Canyon
   requiredCoins: 10
   nextScene: Level3
   spawnPoint: {fileID: 1499637378}
-  objective: Collect 10 coins, avoid falling rocks, defeat enemies.
+  objective: Reach the exit, avoid falling rocks and enemies. Collect up to 10 optional coins.
   generatedLayoutScene: Level2
   bossLevel: 0
+  enemyObjects:
+  - {fileID: 1780014310}
+  - {fileID: 631293024}
 --- !u!1 &447244654
 GameObject:
   m_ObjectHideFlags: 0
@@ -16584,6 +16588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.GameMenuController
   gameplayScene: 1
   mainPanel: {fileID: 0}
+  stageSelectionPanel: {fileID: 0}
   pausePanel: {fileID: 1893734202}
   settingsPanel: {fileID: 448216473}
   controlsPanel: {fileID: 1870252452}
@@ -16596,6 +16601,7 @@ MonoBehaviour:
   levelCompletePanel: {fileID: 1920965801}
   victoryPanel: {fileID: 1493357907}
   completedCoins: {fileID: 992676349}
+  replayScene: MainLevel
 --- !u!224 &1002390975
 RectTransform:
   m_ObjectHideFlags: 0

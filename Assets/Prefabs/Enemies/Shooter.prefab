@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb32bdedf31475ca7cd54e8970f3ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.EnemyHealth
-  maximumHealth: 2
+  stats: {fileID: 11400000, guid: ed1dd4ddb6814c0782e380afb803a2c0, type: 2}
 --- !u!114 &7189575038525149648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,11 +406,10 @@ MonoBehaviour:
   gameplayCamera: {fileID: 0}
   visual: {fileID: 5562264309712649061}
   sightOrigin: {fileID: 4394063295352149984}
-  sightDistance: 7
-  fieldOfView: 110
   walls:
     serializedVersion: 2
     m_Bits: 256
+  stats: {fileID: 11400000, guid: ed1dd4ddb6814c0782e380afb803a2c0, type: 2}
 --- !u!114 &761731708052617053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,9 +427,4 @@ MonoBehaviour:
   aimWarning: {fileID: 7836486249654482562}
   projectilePrefab: {fileID: 8259914091469986201, guid: 369115767337c8d4096ed7a3254eb85e, type: 3}
   muzzleOffset: {x: 0.55, y: 0.2}
-  scanTurnSeconds: 1
-  preferredDistance: 3
-  retreatSpeed: 2
-  wallClearance: 0.02
-  windUpSeconds: 0.6
-  cooldownSeconds: 1.4
+  stats: {fileID: 11400000, guid: ed1dd4ddb6814c0782e380afb803a2c0, type: 2}

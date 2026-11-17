@@ -2584,6 +2584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb26d9dccaf33147924a10ee62e579b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.LevelDefinition
+  levelData: {fileID: 11400000, guid: f83d411c9b4e4a209845029c1f3248aa, type: 2}
   levelNumber: 4
   levelName: Shadow King's Throne
   requiredCoins: 0
@@ -2592,6 +2593,8 @@ MonoBehaviour:
   objective: 'Defeat SHADOW KING: land 15 energy blasts. Dodge warned shots and jump over Phase 2 waves.'
   generatedLayoutScene: Level4
   bossLevel: 1
+  enemyObjects:
+  - {fileID: 1194297949}
 --- !u!1001 &448216468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5954,6 +5957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.GameMenuController
   gameplayScene: 1
   mainPanel: {fileID: 0}
+  stageSelectionPanel: {fileID: 0}
   pausePanel: {fileID: 1893734202}
   settingsPanel: {fileID: 448216473}
   controlsPanel: {fileID: 1870252452}
@@ -5966,6 +5970,7 @@ MonoBehaviour:
   levelCompletePanel: {fileID: 1920965801}
   victoryPanel: {fileID: 1493357907}
   completedCoins: {fileID: 992676349}
+  replayScene: MainLevel
 --- !u!224 &1002390975
 RectTransform:
   m_ObjectHideFlags: 0

@@ -4,8 +4,10 @@ namespace Zhuzbai.Platformer
 {
     [RequireComponent(typeof(EnemyHealth), typeof(EnemyPerception2D), typeof(Rigidbody2D))]
     [RequireComponent(typeof(BoxCollider2D))]
-    public sealed class ShooterEnemy : MonoBehaviour
+    public sealed class ShooterEnemy : MonoBehaviour, IEnemyStatsReceiver
     {
+        [SerializeField] private EnemyStats stats = null;
+        public void ApplyStats(EnemyStats data) { if (data != null) stats = data; }
         private enum State { Scan, KeepDistance, WindUp, Fire, Cooldown }
 
         [SerializeField] private Transform waypointA = null;
@@ -13,12 +15,12 @@ namespace Zhuzbai.Platformer
         [SerializeField] private LineRenderer aimWarning = null;
         [SerializeField] private EnemyProjectile projectilePrefab = null;
         [SerializeField] private Vector2 muzzleOffset = new Vector2(0.55f, 0.2f);
-        [SerializeField, Min(0.1f)] private float scanTurnSeconds = 1f;
-        [SerializeField, Min(0.1f)] private float preferredDistance = 3f;
-        [SerializeField, Min(0.1f)] private float retreatSpeed = 2f;
-        [SerializeField, Min(0)] private float wallClearance = 0.02f;
-        [SerializeField, Range(0.3f, 0.8f)] private float windUpSeconds = 0.6f;
-        [SerializeField, Min(0.1f)] private float cooldownSeconds = 1.4f;
+        private float scanTurnSeconds => stats.shooterEnemy_scanTurnSeconds;
+        private float preferredDistance => stats.shooterEnemy_preferredDistance;
+        private float retreatSpeed => stats.shooterEnemy_retreatSpeed;
+        private float wallClearance => stats.shooterEnemy_wallClearance;
+        private float windUpSeconds => stats.shooterEnemy_windUpSeconds;
+        private float cooldownSeconds => stats.shooterEnemy_cooldownSeconds;
 
         private Rigidbody2D body;
         private EnemyPerception2D perception;

@@ -93,7 +93,7 @@ namespace Zhuzbai.Platformer.Editor
                 foreach (var collider in hazard.GetComponents<Collider2D>()) layout.bottom = Mathf.Min(layout.bottom, collider.bounds.min.y);
             float gravity = Mathf.Abs(Physics2D.gravity.y * body.gravityScale);
             if (gravity < .01f) throw new InvalidOperationException("Cannot derive boundary height without downward player gravity.");
-            float jump = new SerializedObject(player).FindProperty("jumpSpeed").floatValue + verticalSpeed;
+            float jump = BalanceEditorUtility.PlayerValue(player, "jumpSpeed") + verticalSpeed;
             layout.top = highest + jump * jump / (2 * gravity) + playerBox.size.y + .5f;
             layout.bottom -= playerBox.size.y + .5f;
             if (Physics2D.GetIgnoreLayerCollision(layout.layer, player.gameObject.layer)) throw new InvalidOperationException(scene.name + ": ground layer does not collide with the player.");

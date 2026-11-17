@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb32bdedf31475ca7cd54e8970f3ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.EnemyHealth
-  maximumHealth: 3
+  stats: {fileID: 11400000, guid: d5f8aca8289f489180d2f5d00c34015e, type: 2}
 --- !u!114 &2526362547016175424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,11 +233,10 @@ MonoBehaviour:
   gameplayCamera: {fileID: 0}
   visual: {fileID: 6935110672091290461}
   sightOrigin: {fileID: 8435471686345384514}
-  sightDistance: 7
-  fieldOfView: 110
   walls:
     serializedVersion: 2
     m_Bits: 256
+  stats: {fileID: 11400000, guid: d5f8aca8289f489180d2f5d00c34015e, type: 2}
 --- !u!114 &3521978092960102581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,17 +251,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.ChargerEnemy
   waypointA: {fileID: 0}
   waypointB: {fileID: 0}
-  patrolSpeed: 1.2
-  chargeSpeed: 8
-  chargeRange: 4.5
-  chargeSeconds: 0.5
-  maximumHeightDifference: 0.85
-  wallClearance: 0.02
-  damage: 1
-  windUpSeconds: 0.7
-  recoverySeconds: 1.5
   warningColor: {r: 1, g: 0.21568628, b: 0.21568628, a: 1}
   dashDirectionIndicator: {fileID: 2862091085048026136}
+  stats: {fileID: 11400000, guid: d5f8aca8289f489180d2f5d00c34015e, type: 2}
 --- !u!1 &6965800411870177651
 GameObject:
   m_ObjectHideFlags: 0

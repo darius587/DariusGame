@@ -4,19 +4,21 @@ namespace Zhuzbai.Platformer
 {
     [RequireComponent(typeof(EnemyHealth), typeof(EnemyPerception2D), typeof(Rigidbody2D))]
     [RequireComponent(typeof(BoxCollider2D))]
-    public sealed class PatrollerEnemy : MonoBehaviour
+    public sealed class PatrollerEnemy : MonoBehaviour, IEnemyStatsReceiver
     {
+        [SerializeField] private EnemyStats stats = null;
+        public void ApplyStats(EnemyStats data) { if (data != null) stats = data; }
         private enum State { Patrol, Chase, WindUp, Strike, Cooldown }
 
         [SerializeField] private Transform waypointA = null;
         [SerializeField] private Transform waypointB = null;
-        [SerializeField, Min(0.1f)] private float patrolSpeed = 1.4f;
-        [SerializeField, Min(0.1f)] private float chaseSpeed = 2.8f;
-        [SerializeField, Min(0.1f)] private float strikeRange = 1.25f;
-        [SerializeField, Min(0)] private float wallClearance = 0.02f;
-        [SerializeField, Min(1)] private int damage = 1;
-        [SerializeField, Range(0.3f, 0.8f)] private float windUpSeconds = 0.4f;
-        [SerializeField, Min(0.1f)] private float cooldownSeconds = 1f;
+        private float patrolSpeed => stats.patrollerEnemy_patrolSpeed;
+        private float chaseSpeed => stats.patrollerEnemy_chaseSpeed;
+        private float strikeRange => stats.patrollerEnemy_strikeRange;
+        private float wallClearance => stats.patrollerEnemy_wallClearance;
+        private int damage => stats.patrollerEnemy_damage;
+        private float windUpSeconds => stats.patrollerEnemy_windUpSeconds;
+        private float cooldownSeconds => stats.patrollerEnemy_cooldownSeconds;
         [SerializeField] private Color warningColor = new Color(1f, 0.65f, 0.2f);
 
         private Rigidbody2D body;

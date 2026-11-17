@@ -182,5 +182,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.PatrolEnemy
   left: 0
   right: 3
-  speed: 1.1
   hitPoints: 2
+  stats: {fileID: 11400000, guid: cc6cfd81efcd4488a54e344e24a1dfd0, type: 2}

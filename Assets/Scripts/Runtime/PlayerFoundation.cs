@@ -11,14 +11,15 @@ namespace Zhuzbai.Platformer
     [RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D), typeof(PlayerHealth))]
     public sealed class PlayerFoundation : MonoBehaviour
     {
+        [SerializeField] private PlayerStats stats = null;
         [SerializeField] private Transform groundCheck = null;
         [SerializeField] private Transform projectileOrigin = null;
         [SerializeField] private Animator animator = null;
         [SerializeField] private SpriteRenderer spriteRenderer = null;
         [SerializeField] private BulletProjectile bulletPrefab = null;
-        [SerializeField, Min(0)] private float moveSpeed = 6;
-        [SerializeField, Min(0)] private float jumpSpeed = 13.5f;
-        [SerializeField, Min(0.01f)] private float fireCooldown = 0.3f;
+        private float moveSpeed => stats.playerFoundation_moveSpeed;
+        private float jumpSpeed => stats.playerFoundation_jumpSpeed;
+        private float fireCooldown => stats.playerFoundation_fireCooldown;
         [SerializeField] private LayerMask groundLayers = ~0;
         private readonly RaycastHit2D[] groundHits = new RaycastHit2D[16];
         private readonly RaycastHit2D[] muzzleHits = new RaycastHit2D[16];

@@ -170,3 +170,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab6e4d3182924e3448ea1b4e63c563f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.ShadowKingProjectile
+  stats: {fileID: 11400000, guid: ce943b4029824553b6389b8562fde4b3, type: 2}

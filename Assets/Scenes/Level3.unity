@@ -533,13 +533,9 @@ PrefabInstance:
       value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 7230885202755998826, guid: 257ea8e199810cd4f963a0596d5feec6, type: 3}
-      propertyPath: speed
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7230885202755998826, guid: 257ea8e199810cd4f963a0596d5feec6, type: 3}
-      propertyPath: hitPoints
-      value: 3
-      objectReference: {fileID: 0}
+      propertyPath: stats
+      value:
+      objectReference: {fileID: 11400000, guid: 234a30b0cf7d479dbc34b003ba707fae, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2533,13 +2529,9 @@ PrefabInstance:
       value: 56
       objectReference: {fileID: 0}
     - target: {fileID: 7230885202755998826, guid: 257ea8e199810cd4f963a0596d5feec6, type: 3}
-      propertyPath: speed
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7230885202755998826, guid: 257ea8e199810cd4f963a0596d5feec6, type: 3}
-      propertyPath: hitPoints
-      value: 3
-      objectReference: {fileID: 0}
+      propertyPath: stats
+      value:
+      objectReference: {fileID: 11400000, guid: 234a30b0cf7d479dbc34b003ba707fae, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4803,10 +4795,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '1. Collect all coins to unlock the exit gate.
+  m_Text: '1. Reach the exit gate to finish the level, even with zero coins.
 
 
-    2. Reach the unlocked gate to finish the level.
+    2. Coins are optional. Collect them to improve your score and total coins.
 
 
     3. You have 3 HP. Avoid abyss falls, enemies, falling rocks, and bombs.
@@ -7570,14 +7562,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb26d9dccaf33147924a10ee62e579b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.LevelDefinition
+  levelData: {fileID: 11400000, guid: f9c6467799c548fb81bb1b181af68301, type: 2}
   levelNumber: 3
   levelName: Dark Castle
   requiredCoins: 12
   nextScene: Level4
   spawnPoint: {fileID: 1499637378}
-  objective: Collect 12 coins, avoid bombs, use moving platforms.
+  objective: Reach the exit, avoid bombs and use moving platforms. Collect up to 12 optional coins.
   generatedLayoutScene: Level3
   bossLevel: 0
+  enemyObjects:
+  - {fileID: 583091378}
+  - {fileID: 29221702}
+  - {fileID: 183257046}
 --- !u!1001 &448216468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10362,13 +10359,9 @@ PrefabInstance:
       value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7230885202755998826, guid: 257ea8e199810cd4f963a0596d5feec6, type: 3}
-      propertyPath: speed
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7230885202755998826, guid: 257ea8e199810cd4f963a0596d5feec6, type: 3}
-      propertyPath: hitPoints
-      value: 3
-      objectReference: {fileID: 0}
+      propertyPath: stats
+      value:
+      objectReference: {fileID: 11400000, guid: 234a30b0cf7d479dbc34b003ba707fae, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15670,6 +15663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.GameMenuController
   gameplayScene: 1
   mainPanel: {fileID: 0}
+  stageSelectionPanel: {fileID: 0}
   pausePanel: {fileID: 1893734202}
   settingsPanel: {fileID: 448216473}
   controlsPanel: {fileID: 1870252452}
@@ -15682,6 +15676,7 @@ MonoBehaviour:
   levelCompletePanel: {fileID: 1920965801}
   victoryPanel: {fileID: 1493357907}
   completedCoins: {fileID: 992676349}
+  replayScene: MainLevel
 --- !u!224 &1002390975
 RectTransform:
   m_ObjectHideFlags: 0
