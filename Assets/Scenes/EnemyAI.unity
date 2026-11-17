@@ -2840,6 +2840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb26d9dccaf33147924a10ee62e579b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.LevelDefinition
+  levelData: {fileID: 11400000, guid: 3426be1cd96142bf81bba856ee03bce5, type: 2}
   levelNumber: 5
   levelName: Enemy Arena
   requiredCoins: 3
@@ -2848,6 +2849,10 @@ MonoBehaviour:
   objective: Collect all three coins and reach the exit. Use the cover wall to break the Shooter's aim, and jump onto the platforms to dodge melee attacks.
   generatedLayoutScene: EnemyAI
   bossLevel: 0
+  enemyObjects:
+  - {fileID: 1438435613}
+  - {fileID: 448524129}
+  - {fileID: 450149734}
 --- !u!1001 &448216468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3072,6 +3077,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 432830647}
     m_Modifications:
     - target: {fileID: 761731708052617053, guid: 7bdbf4eeef50b8a4c8e65728da00174d, type: 3}
+      propertyPath: stats
+      value:
+      objectReference: {fileID: 11400000, guid: 2707d38195b348b58cd39351a8678dbe, type: 2}
+    - target: {fileID: 761731708052617053, guid: 7bdbf4eeef50b8a4c8e65728da00174d, type: 3}
       propertyPath: waypointA
       value: 
       objectReference: {fileID: 1914269855}
@@ -3079,10 +3088,6 @@ PrefabInstance:
       propertyPath: waypointB
       value: 
       objectReference: {fileID: 1481507647}
-    - target: {fileID: 761731708052617053, guid: 7bdbf4eeef50b8a4c8e65728da00174d, type: 3}
-      propertyPath: windUpSeconds
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 2331772383919735760, guid: 7bdbf4eeef50b8a4c8e65728da00174d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.6
@@ -3162,6 +3167,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1130764581}
     - target: {fileID: 3521978092960102581, guid: 27599cbdd4b8b1c4a90af59fcc3357a6, type: 3}
+      propertyPath: stats
+      value:
+      objectReference: {fileID: 11400000, guid: 7209046cbea64e9986efdac1b34f9c37, type: 2}
+    - target: {fileID: 3521978092960102581, guid: 27599cbdd4b8b1c4a90af59fcc3357a6, type: 3}
       propertyPath: waypointA
       value: 
       objectReference: {fileID: 1633219301}
@@ -3169,10 +3178,6 @@ PrefabInstance:
       propertyPath: waypointB
       value: 
       objectReference: {fileID: 1437671752}
-    - target: {fileID: 3521978092960102581, guid: 27599cbdd4b8b1c4a90af59fcc3357a6, type: 3}
-      propertyPath: chargeSpeed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 4193437298618213283, guid: 27599cbdd4b8b1c4a90af59fcc3357a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.3

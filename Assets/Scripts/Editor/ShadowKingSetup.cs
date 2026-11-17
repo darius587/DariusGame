@@ -213,7 +213,7 @@ namespace Zhuzbai.Platformer.Editor
         private static void Stretch(RectTransform rect) { rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one; rect.offsetMin = rect.offsetMax = Vector2.zero; }
         private static void Set(Object target, string field, object value)
         {
-            var data = new SerializedObject(target); var property = data.FindProperty(field);
+            var data = new SerializedObject(target); var property = BalanceEditorUtility.Property(ref data,target,field);
             if (value is int i) property.intValue = i; else if (value is bool b) property.boolValue = b; else if (value is string s) property.stringValue = s; else if (value is Vector2 v) property.vector2Value = v;
             else throw new ArgumentException(field);
             data.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(target); if (PrefabUtility.IsPartOfPrefabInstance(target)) PrefabUtility.RecordPrefabInstancePropertyModifications(target);
@@ -236,7 +236,7 @@ namespace Zhuzbai.Platformer.Editor
                 var player = U.All<PlayerFoundation>(scene).Single(); Require(player.GetComponent<PlayerHealth>().MaximumHealth == 3 && player.GetComponents<PlayerInput>().Length == 1 && player.GetComponent<MultiDeviceInput>() != null, "Player health/input configuration invalid.");
                 var playerInput = player.GetComponent<PlayerInput>(); Require(playerInput.actions != null && playerInput.actions.name == "PlayerControls" && playerInput.neverAutoSwitchControlSchemes && playerInput.defaultActionMap == "Player", "Boss scene input changed.");
                 Require(playerInput.notificationBehavior == PlayerNotifications.SendMessages && playerInput.enabled && player.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Dynamic, "Player input/physics mode changed.");
-                Require(U.All<ShadowKingHealth>(scene).Length == 1 && U.All<ShadowKingBoss>(scene).Length == 1 && U.All<ShadowKingHud>(scene).Length == 1 && ShadowKingHealth.FullHealth == 15, "Missing/duplicate boss or health bar.");
+                Require(U.All<ShadowKingHealth>(scene).Length == 1 && U.All<ShadowKingBoss>(scene).Length == 1 && U.All<ShadowKingHud>(scene).Length == 1 && U.All<ShadowKingHealth>(scene).Single().MaximumHealth == 15, "Missing/duplicate boss or health bar.");
                 var boss = U.All<ShadowKingBoss>(scene).Single(); var data = new SerializedObject(boss);
                 foreach (string field in new[] { "animator", "visual", "warning", "muzzle", "projectilePrefab", "victorySound", "player", "session" }) Require(data.FindProperty(field).objectReferenceValue != null, "Missing boss reference: " + field);
                 Require(boss.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic && !boss.GetComponent<Collider2D>().isTrigger, "Boss body/collider invalid.");

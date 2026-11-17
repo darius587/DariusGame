@@ -4,21 +4,23 @@ namespace Zhuzbai.Platformer
 {
     [RequireComponent(typeof(EnemyHealth), typeof(EnemyPerception2D), typeof(Rigidbody2D))]
     [RequireComponent(typeof(BoxCollider2D))]
-    public sealed class ChargerEnemy : MonoBehaviour
+    public sealed class ChargerEnemy : MonoBehaviour, IEnemyStatsReceiver
     {
+        [SerializeField] private EnemyStats stats = null;
+        public void ApplyStats(EnemyStats data) { if (data != null) stats = data; }
         private enum State { Patrol, WindUp, Charge, Recover }
 
         [SerializeField] private Transform waypointA = null;
         [SerializeField] private Transform waypointB = null;
-        [SerializeField, Min(0.1f)] private float patrolSpeed = 1.2f;
-        [SerializeField, Min(0.1f)] private float chargeSpeed = 8f;
-        [SerializeField, Min(0.1f)] private float chargeRange = 4.5f;
-        [SerializeField, Min(0.1f)] private float chargeSeconds = 0.5f;
-        [SerializeField, Min(0)] private float maximumHeightDifference = 0.85f;
-        [SerializeField, Min(0)] private float wallClearance = 0.02f;
-        [SerializeField, Min(1)] private int damage = 1;
-        [SerializeField, Range(0.3f, 0.8f)] private float windUpSeconds = 0.7f;
-        [SerializeField, Min(0.1f)] private float recoverySeconds = 1.5f;
+        private float patrolSpeed => stats.chargerEnemy_patrolSpeed;
+        private float chargeSpeed => stats.chargerEnemy_chargeSpeed;
+        private float chargeRange => stats.chargerEnemy_chargeRange;
+        private float chargeSeconds => stats.chargerEnemy_chargeSeconds;
+        private float maximumHeightDifference => stats.chargerEnemy_maximumHeightDifference;
+        private float wallClearance => stats.chargerEnemy_wallClearance;
+        private int damage => stats.chargerEnemy_damage;
+        private float windUpSeconds => stats.chargerEnemy_windUpSeconds;
+        private float recoverySeconds => stats.chargerEnemy_recoverySeconds;
         [SerializeField] private Color warningColor = new Color(1f, 0.25f, 0.3f);
         [SerializeField] private LineRenderer dashDirectionIndicator = null;
 

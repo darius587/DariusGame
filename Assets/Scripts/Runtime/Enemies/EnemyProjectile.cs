@@ -6,10 +6,11 @@ namespace Zhuzbai.Platformer
     [DisallowMultipleComponent]
     public sealed class EnemyProjectile : MonoBehaviour
     {
-        [SerializeField, Min(1)] private int damage = 1;
-        [SerializeField, Min(0.1f)] private float speed = 5f;
-        [SerializeField, Min(0.1f)] private float lifetime = 3f;
-        [SerializeField, Min(0.01f)] private float collisionRadius = 0.12f;
+        [SerializeField] private EnemyStats stats = null;
+        private int damage => stats.enemyProjectile_damage;
+        private float speed => stats.enemyProjectile_speed;
+        private float lifetime => stats.enemyProjectile_lifetime;
+        private float collisionRadius => stats.enemyProjectile_collisionRadius;
 
         private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>(8);
         private ContactFilter2D hitFilter;

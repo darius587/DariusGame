@@ -16,9 +16,9 @@ namespace Zhuzbai.Platformer
         private void Refresh()
         {
             if (health == null) return;
-            fill.fillAmount = health.CurrentHealth / (float)ShadowKingHealth.FullHealth;
+            fill.fillAmount = health.CurrentHealth / (float)health.MaximumHealth;
             fill.color = health.Phase == 1 ? new Color32(156, 73, 204, 255) : new Color32(216, 64, 112, 255);
-            hitPoints.text = $"{health.CurrentHealth} / 15 HP";
+            hitPoints.text = $"{health.CurrentHealth} / {health.MaximumHealth} HP";
         }
         private void LateUpdate()
         {

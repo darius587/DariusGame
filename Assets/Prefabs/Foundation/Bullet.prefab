@@ -170,5 +170,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32a2ec776da714f4187ab126ce5d681a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.BulletProjectile
-  speed: 14
-  lifetime: 3
+  stats: {fileID: 11400000, guid: a3fc653328f24b9780363547dcee71c3, type: 2}

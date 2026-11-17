@@ -5,20 +5,23 @@ using UnityEngine;
 namespace Zhuzbai.Platformer
 {
     [DisallowMultipleComponent]
-    public sealed class ShadowKingHealth : MonoBehaviour
+    public sealed class ShadowKingHealth : MonoBehaviour, IEnemyStatsReceiver
     {
-        public const int FullHealth = 15;
+        [SerializeField] private EnemyStats stats = null;
+        public void ApplyStats(EnemyStats data) { if (data != null) stats = data; CurrentHealth = MaximumHealth; }
+        public int MaximumHealth => stats.bossMaximumHealth;
         private readonly HashSet<EntityId> hits = new HashSet<EntityId>();
-        public int CurrentHealth { get; private set; } = FullHealth;
+        public int CurrentHealth { get; private set; }
+        private void Awake() => CurrentHealth = MaximumHealth;
         public bool IsDead => CurrentHealth == 0;
-        public int Phase => CurrentHealth >= 8 ? 1 : 2;
+        public int Phase => CurrentHealth >= stats.bossPhaseThreshold ? 1 : 2;
         public event Action Changed;
         public event Action Damaged;
         public event Action Defeated;
         public bool TryTakeBulletHit(BulletProjectile bullet)
         {
             if (bullet == null || IsDead || GameMenuController.IsGameplayBlocked || !hits.Add(bullet.GetEntityId())) return false;
-            CurrentHealth = Mathf.Max(0, CurrentHealth - 1);
+            CurrentHealth = Mathf.Max(0, CurrentHealth - bullet.Damage);
             Changed?.Invoke();
             if (IsDead) Defeated?.Invoke();
             else Damaged?.Invoke();

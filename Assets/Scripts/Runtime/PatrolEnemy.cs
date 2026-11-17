@@ -3,16 +3,25 @@ using UnityEngine;
 namespace Zhuzbai.Platformer
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
-    public sealed class PatrolEnemy : MonoBehaviour
+    public sealed class PatrolEnemy : MonoBehaviour, IEnemyStatsReceiver
     {
+        [SerializeField] private EnemyStats stats = null;
+        public void ApplyStats(EnemyStats data) { if (data != null) stats = data; hitPoints = stats.patrolEnemy_maximumHealth; }
         [SerializeField] private float left = 0;
         [SerializeField] private float right = 3;
-        [SerializeField] private float speed = 1.1f;
-        [SerializeField] private int hitPoints = 2;
+        private float speed => stats.patrolEnemy_speed;
+        private int hitPoints;
         private Rigidbody2D body;
         private SpriteRenderer visual;
         private int direction = 1;
-        private void Awake() { body = GetComponent<Rigidbody2D>(); visual = GetComponent<SpriteRenderer>(); }
+        private void Awake() { hitPoints = stats.patrolEnemy_maximumHealth; body = GetComponent<Rigidbody2D>(); visual = GetComponent<SpriteRenderer>(); }
+        public void Configure(Vector3 position, EnemyStats data)
+        {
+            if (data != null) stats = data;
+            hitPoints = stats.patrolEnemy_maximumHealth;
+            transform.position = position;
+            body.position = position;
+        }
         private void FixedUpdate()
         {
             if (body.position.x >= right) direction = -1;
@@ -29,6 +38,6 @@ namespace Zhuzbai.Platformer
         }
         private void OnCollisionEnter2D(Collision2D collision) => Hurt(collision.collider);
         private void OnCollisionStay2D(Collision2D collision) => Hurt(collision.collider);
-        private static void Hurt(Collider2D other) => other.GetComponentInParent<PlayerHealth>()?.TakeDamage(1);
+        private void Hurt(Collider2D other) => other.GetComponentInParent<PlayerHealth>()?.TakeDamage(stats.patrollerEnemy_damage);
     }
 }

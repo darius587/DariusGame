@@ -22,7 +22,7 @@ namespace Zhuzbai.Platformer.Editor
         private const string Prefabs = "Assets/Prefabs/Phase5/";
         private static readonly string[] Paths = { U.Menu, U.Level, "Assets/Scenes/Level2.unity", "Assets/Scenes/Level3.unity" };
         private static readonly string[] Names = { "", "Green Valley", "Desert Canyon", "Dark Castle" };
-        private static readonly string[] Objectives = { "", "Learn the platforms, collect 8 coins, find the exit.", "Collect 10 coins, avoid falling rocks, defeat enemies.", "Collect 12 coins, avoid bombs, use moving platforms." };
+        private static readonly string[] Objectives = { "", "Reach the exit. Collect up to 8 optional coins to improve your score.", "Reach the exit, avoid falling rocks and enemies. Collect up to 10 optional coins.", "Reach the exit, avoid bombs and use moving platforms. Collect up to 12 optional coins." };
         private static bool abyssTestRunning;
         private static Material Material => AssetDatabase.LoadAssetAtPath<Material>("Assets/Sprites/Foundation/PixelUnlit.mat");
 
@@ -83,7 +83,7 @@ namespace Zhuzbai.Platformer.Editor
             var help = UI.Panel(safe, "How To Play", new Vector2(900, 940));
             UI.Label(help, "Title", "HOW TO PLAY", new Vector2(0, -40), new Vector2(760, 70), 44, Color.yellow);
             var objective = UI.Label(help, "Objective", "", new Vector2(0, -130), new Vector2(790, 185), 27, new Color32(255, 217, 126, 255));
-            UI.Label(help, "Goals", "1. Collect all coins to unlock the exit gate.\n\n2. Reach the unlocked gate to finish the level.\n\n3. You have 3 HP. Avoid abyss falls, enemies, falling rocks, and bombs.\n\n4. Complete all four levels to win.", new Vector2(0, -330), new Vector2(790, 400), 28, Color.white);
+            UI.Label(help, "Goals", "1. Reach the exit gate to finish the level, even with zero coins.\n\n2. Coins are optional. Collect them to improve your score and total coins.\n\n3. You have 3 HP. Avoid abyss falls, enemies, falling rocks, and bombs.\n\n4. Complete all four levels to win.", new Vector2(0, -330), new Vector2(790, 400), 28, Color.white);
             UI.MakeButton(help, "Close", "X", -100, MenuCommand.Back, controller);
             var close = (RectTransform)help.Find("Close"); UI.Place(close, Vector2.one, Vector2.one, new Vector2(-20, -20), new Vector2(64, 64));
             UI.MakeButton(help, "Got It", "GOT IT", -830, MenuCommand.Back, controller);
@@ -282,7 +282,7 @@ namespace Zhuzbai.Platformer.Editor
         private static T Get<T>(GameObject go) where T:Component { var value=go.GetComponent<T>(); return value!=null?value:go.AddComponent<T>(); }
         private static void Set(Object target,string field,object value)
         {
-            var data=new SerializedObject(target); var property=data.FindProperty(field);
+            var data=new SerializedObject(target); var property=BalanceEditorUtility.Property(ref data,target,field);
             if(value is int i) property.intValue=i; else if(value is float f) property.floatValue=f; else if(value is bool b) property.boolValue=b; else if(value is string s) property.stringValue=s; else if(value is Vector2 v) property.vector2Value=v; else throw new ArgumentException(field);
             data.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(target);
             if(PrefabUtility.IsPartOfPrefabInstance(target)) PrefabUtility.RecordPrefabInstancePropertyModifications(target);
@@ -349,8 +349,8 @@ namespace Zhuzbai.Platformer.Editor
             if(number==3) { Require(U.All<MovingPlatform>(scene).Length>=2,"Missing moving platforms"); foreach(var platform in U.All<MovingPlatform>(scene))Require(platform.GetComponent<Rigidbody2D>().bodyType==RigidbodyType2D.Kinematic&&platform.GetComponent<BoxCollider2D>()!=null,"Invalid moving platform physics"); }
             var tuning = new SerializedObject(player);
             float gravity = Mathf.Abs(Physics2D.gravity.y) * body.gravityScale;
-            float jump = tuning.FindProperty("jumpSpeed").floatValue;
-            float speed = tuning.FindProperty("moveSpeed").floatValue;
+            float jump = BalanceEditorUtility.PlayerValue(player, "jumpSpeed");
+            float speed = BalanceEditorUtility.PlayerValue(player, "moveSpeed");
             Require(gravity > 0 && jump * jump / (2 * gravity) >= 2.6f && speed * 2 * jump / gravity >= 5,
                 "Player tuning no longer supports the generated jumps. Restore inspected speed 6 / jump 13.5 / gravity scale 3, or redesign platforms.");
         }

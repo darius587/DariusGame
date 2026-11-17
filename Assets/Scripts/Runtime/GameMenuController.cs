@@ -28,6 +28,7 @@ namespace Zhuzbai.Platformer
         [SerializeField] private GameObject victoryPanel = null;
         [SerializeField] private UnityEngine.UI.Text completedCoins = null;
         [SerializeField] private string replayScene = "MainLevel";
+        private ProgressionMenu progressionMenu;
         private LevelSession session;
         private PlayerHealth health;
         private MenuScreen? outcome;
@@ -47,6 +48,8 @@ namespace Zhuzbai.Platformer
         private void Start()
         {
             Time.timeScale = 1;
+            progressionMenu = gameObject.AddComponent<ProgressionMenu>();
+            progressionMenu.Build(stageSelectionPanel, settingsPanel, this);
             playerMap = playerInput != null ? playerInput.actions.FindActionMap("Player", true) : null;
             if (gameplayScene && player != null)
             {
@@ -87,6 +90,11 @@ namespace Zhuzbai.Platformer
         }
         public void Execute(MenuCommand command)
         {
+            if (progressionMenu != null && progressionMenu.ConfirmationOpen)
+            {
+                if (command == MenuCommand.Back) progressionMenu.CloseConfirmation();
+                return;
+            }
             switch (command)
             {
                 case MenuCommand.Play:
@@ -111,7 +119,7 @@ namespace Zhuzbai.Platformer
                     Show(history.Count > 0 ? history.Pop() : outcome ?? (gameplayScene ? MenuScreen.Game : MenuScreen.Main), false);
                     break;
                 case MenuCommand.Quit:
-                    PlayerPrefs.Save();
+                    SaveManager.Instance.Save();
 #if UNITY_EDITOR
                     Debug.Log("QUIT selected: a standalone build will exit. Unity Editor remains open.");
 #else
@@ -194,15 +202,17 @@ namespace Zhuzbai.Platformer
                 if (first != null) EventSystem.current.SetSelectedGameObject(first.gameObject);
             }
         }
+        public void LoadLevel(string sceneName) => Load(sceneName);
         private void Load(string sceneName)
         {
+            if (!SaveManager.Instance.IsUnlocked(sceneName)) { Debug.LogWarning("Level is locked: " + sceneName); return; }
             if (!Application.CanStreamedLevelBeLoaded(sceneName))
             {
                 Debug.LogError($"Scene {sceneName} is not in the active Build Profile. Run Apply Main Menu and Game UI.");
                 return;
             }
             Time.timeScale = 1;
-            PlayerPrefs.Save();
+            SaveManager.Instance.Save();
             AudioManager.Instance?.SetGameplayPaused(false);
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }

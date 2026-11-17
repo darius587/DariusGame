@@ -5,8 +5,10 @@ using UnityEngine;
 namespace Zhuzbai.Platformer
 {
     [RequireComponent(typeof(ShadowKingHealth), typeof(Rigidbody2D), typeof(BoxCollider2D))]
-    public sealed class ShadowKingBoss : MonoBehaviour
+    public sealed class ShadowKingBoss : MonoBehaviour, IEnemyStatsReceiver
     {
+        [SerializeField] private EnemyStats stats = null;
+        public void ApplyStats(EnemyStats data) { if (data != null) stats = data; }
         [SerializeField] private Animator animator = null;
         [SerializeField] private SpriteRenderer visual = null;
         [SerializeField] private SpriteRenderer warning = null;
@@ -31,7 +33,7 @@ namespace Zhuzbai.Platformer
         private bool Ready => !health.IsDead && player != null && !player.GetComponent<PlayerHealth>().IsDead && !GameMenuController.IsGameplayBlocked;
         private IEnumerator AttackLoop()
         {
-            yield return new WaitForSeconds(2.5f); // Safe entry window.
+            yield return new WaitForSeconds(stats.bossEntryDelay); // Safe entry window.
             bool wave = false;
             while (!health.IsDead)
             {
@@ -41,31 +43,31 @@ namespace Zhuzbai.Platformer
                 float side = player.transform.position.x < transform.position.x ? -1 : 1;
                 Vector2 origin = new Vector2(transform.position.x + side * 1.15f, muzzle.position.y);
                 Vector2 aim = ((Vector2)player.transform.position - origin).normalized;
-                WarningText = wave ? "LOW WAVE — JUMP!" : "ENERGY SHOT — DODGE!";
+                WarningText = wave ? "LOW WAVE вЂ” JUMP!" : "ENERGY SHOT вЂ” DODGE!";
                 warning.gameObject.SetActive(true);
                 warning.transform.position = origin;
                 animator.SetTrigger("Attack");
-                yield return new WaitForSeconds(phase2 ? 0.75f : 0.95f);
+                yield return new WaitForSeconds(phase2 ? stats.bossPhase2WindUp : stats.bossWindUp);
                 yield return new WaitUntil(() => Ready);
                 warning.gameObject.SetActive(false); WarningText = "";
                 if (wave)
                 {
                     for (int i = 0; i < 2; i++)
                     {
-                        Spawn(new Vector2(origin.x, 0.55f), Vector2.right * (side * 4.5f));
-                        Spawn(new Vector2(origin.x, 1.25f), Vector2.right * (side * 4.5f));
-                        yield return new WaitForSeconds(0.2f);
+                        Spawn(new Vector2(origin.x, 0.55f), Vector2.right * (side * stats.bossWaveSpeed));
+                        Spawn(new Vector2(origin.x, 1.25f), Vector2.right * (side * stats.bossWaveSpeed));
+                        yield return new WaitForSeconds(stats.bossWaveInterval);
                     }
                 }
-                else Spawn(origin, aim * (phase2 ? 4.8f : 4));
-                yield return new WaitForSeconds(phase2 ? 0.95f : 1.7f);
+                else Spawn(origin, aim * (phase2 ? stats.bossPhase2ShotSpeed : stats.bossShotSpeed));
+                yield return new WaitForSeconds(phase2 ? stats.bossPhase2Cooldown : stats.bossCooldown);
             }
         }
         private void Spawn(Vector2 position, Vector2 velocity)
         {
             if (!Ready) return;
             projectiles.RemoveAll(p => p == null);
-            if (projectiles.Count >= 12) return;
+            if (projectiles.Count >= stats.bossProjectileLimit) return;
             var shot = Instantiate(projectilePrefab, position, Quaternion.identity);
             shot.Launch(velocity, bodyCollider);
             foreach (var other in projectiles) Physics2D.IgnoreCollision(shot.GetComponent<Collider2D>(), other.GetComponent<Collider2D>());
@@ -91,6 +93,6 @@ namespace Zhuzbai.Platformer
         private void ClearProjectiles() { foreach (var shot in projectiles) if (shot != null) shot.Disarm(); projectiles.Clear(); }
         private void OnCollisionEnter2D(Collision2D collision) => Contact(collision.collider);
         private void OnCollisionStay2D(Collision2D collision) => Contact(collision.collider);
-        private void Contact(Collider2D other) { if (!health.IsDead) other.GetComponentInParent<PlayerHealth>()?.TakeDamage(1); }
+        private void Contact(Collider2D other) { if (!health.IsDead) other.GetComponentInParent<PlayerHealth>()?.TakeDamage(stats.bossDamage); }
     }
 }

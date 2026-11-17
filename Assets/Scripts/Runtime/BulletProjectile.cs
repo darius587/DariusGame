@@ -5,8 +5,10 @@ namespace Zhuzbai.Platformer
     [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
     public sealed class BulletProjectile : MonoBehaviour
     {
-        [SerializeField, Min(0)] private float speed = 14;
-        [SerializeField, Min(0.01f)] private float lifetime = 3;
+        [SerializeField] private PlayerStats stats = null;
+        private float speed => stats.bulletProjectile_speed;
+        private float lifetime => stats.bulletProjectile_lifetime;
+        public int Damage => stats.bulletProjectile_damage;
         private bool spent;
         public float CollisionRadius => GetComponent<CircleCollider2D>().radius *
             Mathf.Max(Mathf.Abs(transform.lossyScale.x), Mathf.Abs(transform.lossyScale.y));
@@ -30,8 +32,8 @@ namespace Zhuzbai.Platformer
             var boss = collision.collider.GetComponentInParent<ShadowKingHealth>();
             if (boss != null) boss.TryTakeBulletHit(this);
             var enemy = collision.collider.GetComponentInParent<PatrolEnemy>();
-            if (enemy != null) enemy.TakeHit(1);
-            else if (boss == null) collision.collider.GetComponentInParent<EnemyHealth>()?.TakeDamage(1);
+            if (enemy != null) enemy.TakeHit(Damage);
+            else if (boss == null) collision.collider.GetComponentInParent<EnemyHealth>()?.TakeDamage(Damage);
             Destroy(gameObject);
         }
     }

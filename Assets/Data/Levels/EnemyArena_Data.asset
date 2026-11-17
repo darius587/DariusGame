@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39bec5b69e1947c8ae79c70cfd5212bf, type: 3}
+  m_Name: EnemyArena_Data
+  m_EditorClassIdentifier: 
+  levelNumber: 5
+  levelName: Enemy Arena
+  sceneName: EnemyAI
+  nextScene: 
+  timeLimit: 0
+  goal: 0
+  goalAmount: 3
+  objective: Collect all three coins and reach the exit. Use the cover wall to break the Shooter's aim, and jump onto the platforms to dodge melee attacks.
+  playerSpawn: {x: 2, y: 0.83, z: 0}
+  enemies:
+  - objectName: Patroller
+    spawnPosition: {x: 5.1, y: 0.5, z: 0}
+    stats: {fileID: 11400000, guid: cc6cfd81efcd4488a54e344e24a1dfd0, type: 2}
+  - objectName: Shooter
+    spawnPosition: {x: 15.6, y: 0.56, z: 0}
+    stats: {fileID: 11400000, guid: 2707d38195b348b58cd39351a8678dbe, type: 2}
+  - objectName: Charger
+    spawnPosition: {x: 21.3, y: 0.57, z: 0}
+    stats: {fileID: 11400000, guid: 7209046cbea64e9986efdac1b34f9c37, type: 2}

@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb32bdedf31475ca7cd54e8970f3ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.EnemyHealth
-  maximumHealth: 2
+  stats: {fileID: 11400000, guid: cc6cfd81efcd4488a54e344e24a1dfd0, type: 2}
 --- !u!114 &4232688295105835743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,11 +263,10 @@ MonoBehaviour:
   gameplayCamera: {fileID: 0}
   visual: {fileID: 5596566851924597038}
   sightOrigin: {fileID: 2074124627169957765}
-  sightDistance: 7
-  fieldOfView: 110
   walls:
     serializedVersion: 2
     m_Bits: 256
+  stats: {fileID: 11400000, guid: cc6cfd81efcd4488a54e344e24a1dfd0, type: 2}
 --- !u!114 &5243834351687776202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,11 +281,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.PatrollerEnemy
   waypointA: {fileID: 0}
   waypointB: {fileID: 0}
-  patrolSpeed: 1.4
-  chaseSpeed: 2.8
-  strikeRange: 1.25
-  wallClearance: 0.02
-  damage: 1
-  windUpSeconds: 0.4
-  cooldownSeconds: 1
   warningColor: {r: 1, g: 0.21568628, b: 0.21568628, a: 1}
+  stats: {fileID: 11400000, guid: cc6cfd81efcd4488a54e344e24a1dfd0, type: 2}

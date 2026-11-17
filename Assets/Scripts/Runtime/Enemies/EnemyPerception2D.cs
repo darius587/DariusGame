@@ -4,14 +4,16 @@ using UnityEngine;
 namespace Zhuzbai.Platformer
 {
     [DisallowMultipleComponent]
-    public sealed class EnemyPerception2D : MonoBehaviour
+    public sealed class EnemyPerception2D : MonoBehaviour, IEnemyStatsReceiver
     {
+        [SerializeField] private EnemyStats stats = null;
+        public void ApplyStats(EnemyStats data) { if (data != null) stats = data; }
         [SerializeField] private PlayerHealth player;
         [SerializeField] private Camera gameplayCamera;
         [SerializeField] private SpriteRenderer visual;
         [SerializeField] private Transform sightOrigin = null;
-        [SerializeField, Min(0.1f)] private float sightDistance = 7f;
-        [SerializeField, Range(1f, 360f)] private float fieldOfView = 110f;
+        private float sightDistance => stats.enemyPerception2D_sightDistance;
+        private float fieldOfView => stats.enemyPerception2D_fieldOfView;
         [SerializeField] private LayerMask walls;
 
         private Collider2D playerCollider;

@@ -147,8 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 954fbf145f9529d4aa4500d85a7266d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.PlayerHealth
-  maximumHealth: 3
-  invulnerabilitySeconds: 1
+  stats: {fileID: 11400000, guid: a3fc653328f24b9780363547dcee71c3, type: 2}
 --- !u!114 &8459773110151227786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,12 +165,10 @@ MonoBehaviour:
   animator: {fileID: 8973792857093699548}
   spriteRenderer: {fileID: 6912449894186111784}
   bulletPrefab: {fileID: 6219947978046874116, guid: f11713616de350743b1eaf4a5eead5a5, type: 3}
-  moveSpeed: 6
-  jumpSpeed: 13.5
-  fireCooldown: 0.3
   groundLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  stats: {fileID: 11400000, guid: a3fc653328f24b9780363547dcee71c3, type: 2}
 --- !u!114 &78553147363279247
 MonoBehaviour:
   m_ObjectHideFlags: 0

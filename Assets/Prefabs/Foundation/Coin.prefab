@@ -142,3 +142,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19976aee44c58fa4d8512d269bf8135e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.CoinCollectible
+  itemData: {fileID: 11400000, guid: ddc049ff80ee48cfbe56e6a748d5812f, type: 2}

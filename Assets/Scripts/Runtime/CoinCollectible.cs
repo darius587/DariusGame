@@ -6,6 +6,7 @@ namespace Zhuzbai.Platformer
     [RequireComponent(typeof(CircleCollider2D))]
     public sealed class CoinCollectible : MonoBehaviour
     {
+        [SerializeField] private ItemData itemData = null;
         private bool collected;
         private LevelSession session;
         private Vector3 origin;
@@ -26,7 +27,7 @@ namespace Zhuzbai.Platformer
         {
             if (collected || other.GetComponentInParent<PlayerFoundation>() == null) return;
             collected = true;
-            if (session != null) session.CollectCoin();
+            if (session != null) session.CollectCoin(itemData.coinValue, itemData.scoreReward);
             Collected?.Invoke();
             gameObject.SetActive(false);
         }

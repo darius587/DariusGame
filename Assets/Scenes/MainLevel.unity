@@ -3271,10 +3271,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '1. Collect all coins to unlock the exit gate.
+  m_Text: '1. Reach the exit gate to finish the level, even with zero coins.
 
 
-    2. Reach the unlocked gate to finish the level.
+    2. Coins are optional. Collect them to improve your score and total coins.
 
 
     3. You have 3 HP. Avoid abyss falls, enemies, falling rocks, and bombs.
@@ -4998,14 +4998,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb26d9dccaf33147924a10ee62e579b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.LevelDefinition
+  levelData: {fileID: 11400000, guid: 2abde2b1948e4f5ca96e6b92fcc5c69c, type: 2}
   levelNumber: 1
   levelName: Green Valley
   requiredCoins: 8
   nextScene: Level2
   spawnPoint: {fileID: 1499637378}
-  objective: Learn the platforms, collect 8 coins, find the exit.
+  objective: Reach the exit. Collect up to 8 optional coins to improve your score.
   generatedLayoutScene: MainLevel
   bossLevel: 0
+  enemyObjects: []
 --- !u!1001 &448216468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9768,6 +9770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.GameMenuController
   gameplayScene: 1
   mainPanel: {fileID: 0}
+  stageSelectionPanel: {fileID: 0}
   pausePanel: {fileID: 1893734202}
   settingsPanel: {fileID: 448216473}
   controlsPanel: {fileID: 1870252452}
@@ -9780,6 +9783,7 @@ MonoBehaviour:
   levelCompletePanel: {fileID: 1920965801}
   victoryPanel: {fileID: 1493357907}
   completedCoins: {fileID: 992676349}
+  replayScene: MainLevel
 --- !u!224 &1002390975
 RectTransform:
   m_ObjectHideFlags: 0

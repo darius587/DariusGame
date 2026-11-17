@@ -105,7 +105,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7176a2ec3c403e8e6e1e822b1cbfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zhuzbai.Platformer.EnemyProjectile
-  damage: 1
-  speed: 5
-  lifetime: 3
-  collisionRadius: 0.12
+  stats: {fileID: 11400000, guid: ed1dd4ddb6814c0782e380afb803a2c0, type: 2}

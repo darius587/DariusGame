@@ -15,6 +15,8 @@ namespace Zhuzbai.Platformer
             if (goals != null && definition != null)
                 goals.GetComponent<Text>().text = definition.IsBossLevel ?
                     "1. Hit SHADOW KING with 15 green energy blasts.\n\n2. Dodge warned shots. Jump over low waves in Phase 2.\n\n3. You have 3 HP. Death restarts this boss fight.\n\n4. Defeat the king to win. No coins or gate required." :
+                    definition.CoinsOptional ?
+                    "1. Reach the exit gate to finish the level, even with zero coins.\n\n2. Coins are optional. Collect them to improve your score and total coins.\n\n3. You have 3 HP. Avoid falls, enemies, rocks and bombs.\n\n4. Complete all four levels to win." :
                     "1. Collect all coins to unlock the exit gate.\n\n2. Reach the unlocked gate to finish the level.\n\n3. You have 3 HP. Avoid falls, enemies, rocks and bombs.\n\n4. Complete all four levels to win.";
         }
     }

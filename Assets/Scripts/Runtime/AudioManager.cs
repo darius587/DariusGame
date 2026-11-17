@@ -43,6 +43,8 @@ namespace Zhuzbai.Platformer
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetStatics() => Instance = null;
 
+        private void OnEnable() { if (Application.isPlaying && Instance == null) Awake(); }
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -208,6 +210,7 @@ namespace Zhuzbai.Platformer
             PlayerPrefs.SetFloat(SfxKey, SfxVolume);
             ApplyVolumes();
             PlayerPrefs.Save();
+            SaveManager.Instance?.Save();
         }
         public void SetMusicVolume(float value)
         {
@@ -215,6 +218,7 @@ namespace Zhuzbai.Platformer
             PlayerPrefs.SetFloat(MusicKey, MusicVolume);
             ApplyVolumes();
             PlayerPrefs.Save();
+            SaveManager.Instance?.Save();
         }
         public void SetFullscreen(bool value)
         {
@@ -222,6 +226,15 @@ namespace Zhuzbai.Platformer
             if (!Application.isMobilePlatform) Screen.fullScreen = value;
             PlayerPrefs.SetInt(FullscreenKey, value ? 1 : 0);
             PlayerPrefs.Save();
+            SaveManager.Instance?.Save();
+        }
+        public void ResetSavedSettings()
+        {
+            SfxVolume = 0.8f;
+            MusicVolume = 0.45f;
+            Fullscreen = !Application.isMobilePlatform;
+            if (!Application.isMobilePlatform) Screen.fullScreen = Fullscreen;
+            ApplyVolumes();
         }
         private void ApplyVolumes()
         {
@@ -235,7 +248,8 @@ namespace Zhuzbai.Platformer
             uiSource.volume = SfxVolume * 0.45f;
             footstepsSource.volume = SfxVolume * 0.16f;
         }
-        private void OnApplicationPause(bool paused) { if (paused) PlayerPrefs.Save(); }
-        private void OnApplicationQuit() => PlayerPrefs.Save();
+        private void OnApplicationPause(bool paused) { if (paused) PlayerPrefs.Save();
+            SaveManager.Instance?.Save(); }
+        private void OnApplicationQuit() { PlayerPrefs.Save(); SaveManager.Instance?.Save(); }
     }
 }
